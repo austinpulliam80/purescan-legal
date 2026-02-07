@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pure Scan – Legal</title>
+
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #111;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 32px 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    header h1 {
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: #555;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .buttons a {
+      text-decoration: none;
+      padding: 14px 22px;
+      border-radius: 10px;
+      background: #111;
+      color: #fff;
+      font-weight: 600;
+      transition: opacity 0.2s ease;
+    }
+
+    .buttons a:hover {
+      opacity: 0.85;
+    }
+
+    section {
+      margin-top: 80px;
+    }
+
+    section h2 {
+      margin-bottom: 8px;
+    }
+
+    section h3 {
+      margin-top: 24px;
+    }
+
+    footer {
+      margin-top: 80px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>Pure Scan – Food Scanner</h1>
+    <p>Legal Information</p>
+
+    <div class="buttons">
+      <a href="#privacy">Privacy Policy</a>
+      <a href="#terms">Terms of Service</a>
+    </div>
+  </header>
+
+  <!-- PRIVACY POLICY -->
+  <section id="privacy">
+    <h2>Privacy Policy</h2>
+    <p><strong>Last updated:</strong> <span id="date"></span></p>
+
+    <h3>Introduction</h3>
+    <p>
+      Pure Scan – Food Scanner (“Pure Scan,” “we,” “us,” or “our”) is owned and operated by
+      <strong>Austin Pulliam</strong>.
+      We respect your privacy and are committed to protecting it.
+      This policy explains how information is handled when you use the app.
+    </p>
+    <p>
+      Contact: <a href="mailto:support@purescan.app">support@purescan.app</a>
+    </p>
+
+    <h3>Information We Collect</h3>
+
+    <p><strong>Camera Access</strong><br>
+      Used only to scan food labels and ingredient lists.
+      Images are processed locally or temporarily and are not permanently stored.
+    </p>
+
+    <p><strong>App Usage Data</strong><br>
+      Non-personal analytics such as feature usage, crashes, and performance data.
+    </p>
+
+    <p><strong>Subscription Information</strong><br>
+      Managed by Apple In-App Purchases.
+      We do not store payment or billing details.
+    </p>
+
+    <p><strong>Device Information</strong><br>
+      Device type, operating system version, and app version.
+    </p>
+
+    <h3>What We Do Not Collect</h3>
+    <p>
+      We do not collect sensitive personal data, medical records, precise location data,
+      or biometric information.
+      We do not sell personal data.
+    </p>
+
+    <h3>How Information Is Used</h3>
+    <ul>
+      <li>Provide and improve app functionality</li>
+      <li>Operate subscriptions and premium features</li>
+      <li>Fix bugs and improve performance</li>
+    </ul>
+
+    <h3>Third-Party Services</h3>
+    <p>
+      The app may use services such as Apple In-App Purchases, analytics providers
+      (e.g., Apple or Firebase), and subscription services (e.g., Superwall).
+      These services only receive data required to perform their functions.
+    </p>
+
+    <h3>Data Retention</h3>
+    <p>
+      Data is retained only as long as necessary.
+      Users may request deletion of non-purchase data by contacting support.
+    </p>
+
+    <h3>User Rights</h3>
+    <p>
+      You may request access, updates, or deletion of your data by emailing support.
+    </p>
+
+    <h3>Children’s Privacy</h3>
+    <p>
+      Pure Scan is not intended for children under 13.
+      We do not knowingly collect data from children.
+    </p>
+
+    <h3>Changes</h3>
+    <p>
+      This policy may be updated from time to time.
+      Continued use of the app constitutes acceptance of changes.
+    </p>
+  </section>
+
+  <!-- TERMS OF SERVICE -->
+  <section id="terms">
+    <h2>Terms of Service</h2>
+
+    <h3>Acceptance of Terms</h3>
+    <p>
+      By using Pure Scan – Food Scanner, you agree to these Terms of Service.
+      If you do not agree, do not use the app.
+    </p>
+
+    <h3>Description of Service</h3>
+    <p>
+      The app provides food ingredient scanning and informational insights.
+      All information is for educational purposes only and is not medical,
+      nutritional, or professional advice.
+    </p>
+
+    <h3>Subscriptions and Payments</h3>
+    <p>
+      Pure Scan offers auto-renewable subscriptions billed through Apple In-App Purchases.
+      Prices are displayed in the app.
+      Subscriptions renew automatically unless canceled via Apple ID settings.
+    </p>
+
+    <h3>Free Trials</h3>
+    <p>
+      If offered, free trials convert to paid subscriptions unless canceled before the trial ends.
+    </p>
+
+    <h3>Cancellation and Refunds</h3>
+    <p>
+      Apple handles all billing, cancellations, and refunds.
+      The developer cannot issue refunds.
+    </p>
+
+    <h3>Acceptable Use</h3>
+    <ul>
+      <li>No misuse, abuse, or illegal use</li>
+      <li>No reverse engineering or interference</li>
+    </ul>
+
+    <h3>Intellectual Property</h3>
+    <p>
+      All app content, branding, and intellectual property belong to Pure Scan.
+      Users may not copy or redistribute content.
+    </p>
+
+    <h3>Disclaimer of Warranties</h3>
+    <p>
+      The app is provided “as is” without warranties of any kind.
+    </p>
+
+    <h3>Limitation of Liability</h3>
+    <p>
+      Use of the app is at your own risk.
+      The developer is not liable for damages arising from use.
+    </p>
+
+    <h3>Governing Law</h3>
+    <p>
+      These terms are governed by the laws of the United States.
+    </p>
+
+    <h3>Contact</h3>
+    <p>
+      <a href="mailto:support@purescan.app">support@purescan.app</a>
+    </p>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Pure Scan – Food Scanner
+  </footer>
+
+</div>
+
+<script>
+  const today = new Date();
+  document.getElementById("date").textContent = today.toISOString().split("T")[0];
+  document.getElementById("year").textContent = today.getFullYear();
+</script>
+
+</body>
+</html>
