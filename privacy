@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PureScan – Privacy Policy</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            margin-top: 30px;
+        }
+        a {
+            color: #007aff;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Privacy Policy</h1>
+<p>Last Updated: February 14, 2026</p>
+
+<h2>1. Information We Collect</h2>
+<p>PureScan may collect the following information:</p>
+<ul>
+<li>Product scan data</li>
+<li>App usage analytics</li>
+<li>Subscription status</li>
+</ul>
+
+<h2>2. How We Use Information</h2>
+<p>We use collected information to:</p>
+<ul>
+<li>Provide and improve the App</li>
+<li>Analyze usage patterns</li>
+<li>Maintain security</li>
+</ul>
+
+<h2>3. Analytics & Third Parties</h2>
+<p>We may use third-party services (such as analytics providers) to help improve our service. These services may collect anonymous usage data.</p>
+
+<h2>4. Data Storage</h2>
+<p>We do not sell personal data. Data is stored securely and only retained as long as necessary for service functionality.</p>
+
+<h2>5. Children’s Privacy</h2>
+<p>PureScan is not intended for children under 13.</p>
+
+<h2>6. Your Rights</h2>
+<p>You may request deletion of your data by contacting us.</p>
+
+<h2>7. Changes to This Policy</h2>
+<p>We may update this Privacy Policy. Continued use of the App indicates acceptance of updates.</p>
+
+<h2>8. Contact</h2>
+<p>For privacy questions, contact: support@purescanapp.com</p>
+
+<p><a href="index.html">Back to Home</a></p>
+
+</body>
+</html>
