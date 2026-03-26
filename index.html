@@ -15,13 +15,13 @@
       --green: #00CC66;
       --green-dim: rgba(0,204,102,0.12);
       --green-glow: rgba(0,204,102,0.3);
-      --bg: #090C0F;
-      --bg2: #0F1318;
-      --bg3: #141A21;
-      --card: rgba(255,255,255,0.04);
-      --card-border: rgba(255,255,255,0.08);
-      --text: #F0F4F8;
-      --muted: #8A95A3;
+      --bg: #FFFFFF;
+      --bg2: #F8FAFC;
+      --bg3: #F1F5F9;
+      --card: #FFFFFF;
+      --card-border: rgba(0,0,0,0.08); /* Darker border for light theme */
+      --text: #0F172A; /* Slate 900 */
+      --muted: #64748B; /* Slate 500 */
       --yellow: #F5C842;
       --red: #E84545;
     }
@@ -45,7 +45,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 20px 40px;
-      background: rgba(9,12,15,0.85);
+      background: rgba(255, 255, 255, 0.9);
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--card-border);
     }
@@ -103,7 +103,8 @@
       padding: 9px 20px;
       border: 1px solid var(--card-border);
       border-radius: 8px;
-      color: var(--muted);
+      color: var(--text);
+      background: var(--card);
       text-decoration: none;
       font-size: 14px;
       font-weight: 500;
@@ -113,13 +114,14 @@
     .btn-ghost:hover {
       border-color: var(--green);
       color: var(--green);
+      background: var(--green-dim);
     }
 
     .btn-primary {
       padding: 9px 20px;
       background: var(--green);
       border-radius: 8px;
-      color: #000;
+      color: #FFFFFF;
       text-decoration: none;
       font-size: 14px;
       font-weight: 700;
@@ -127,7 +129,7 @@
     }
 
     .btn-primary:hover {
-      background: #00e874;
+      background: #00b359;
       transform: translateY(-1px);
       box-shadow: 0 6px 24px var(--green-glow);
     }
@@ -167,7 +169,7 @@
       padding: 6px 16px;
       font-size: 13px;
       font-weight: 600;
-      color: var(--green);
+      color: #00aa55;
       margin-bottom: 32px;
       letter-spacing: 0.3px;
     }
@@ -218,18 +220,18 @@
       padding: 16px 32px;
       background: var(--green);
       border-radius: 12px;
-      color: #000;
+      color: #FFFFFF;
       text-decoration: none;
       font-size: 16px;
       font-weight: 700;
       transition: all 0.25s;
-      box-shadow: 0 0 40px var(--green-glow);
+      box-shadow: 0 8px 30px var(--green-glow);
     }
 
     .btn-hero-primary:hover {
-      background: #00e874;
+      background: #00b359;
       transform: translateY(-2px);
-      box-shadow: 0 8px 40px var(--green-glow);
+      box-shadow: 0 12px 40px var(--green-glow);
     }
 
     .btn-hero-secondary {
@@ -245,11 +247,12 @@
       font-size: 16px;
       font-weight: 600;
       transition: all 0.25s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
     .btn-hero-secondary:hover {
-      border-color: rgba(255,255,255,0.2);
-      background: rgba(255,255,255,0.07);
+      border-color: rgba(0,0,0,0.15);
+      background: var(--bg2);
       transform: translateY(-2px);
     }
 
@@ -293,7 +296,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--bg3);
+      background: var(--bg2);
       border: 1px solid var(--card-border);
       border-radius: 100px;
       padding: 5px 14px;
@@ -344,14 +347,15 @@
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
     .feature-card::before {
       content: '';
       position: absolute;
       top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--green-glow), transparent);
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
       opacity: 0;
       transition: opacity 0.3s;
     }
@@ -359,7 +363,7 @@
     .feature-card:hover {
       border-color: rgba(0,204,102,0.2);
       transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
     }
 
     .feature-card:hover::before { opacity: 1; }
@@ -411,7 +415,7 @@
     }
 
     .concern-card {
-      background: var(--bg3);
+      background: var(--card);
       border: 1px solid var(--card-border);
       border-radius: 16px;
       padding: 28px 24px;
@@ -419,9 +423,10 @@
       align-items: flex-start;
       gap: 16px;
       transition: transform 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
-    .concern-card:hover { transform: translateY(-3px); }
+    .concern-card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,0,0,0.06); }
 
     .concern-dot {
       width: 14px;
@@ -434,7 +439,7 @@
     .concern-dot.low { background: var(--green); box-shadow: 0 0 10px var(--green-glow); }
     .concern-dot.medium { background: #F5C842; box-shadow: 0 0 10px rgba(245,200,66,0.4); }
     .concern-dot.high { background: var(--red); box-shadow: 0 0 10px rgba(232,69,69,0.4); }
-    .concern-dot.unknown { background: #555; }
+    .concern-dot.unknown { background: #E2E8F0; border: 1px solid #CBD5E1; }
 
     .concern-info-label {
       font-size: 13px;
@@ -444,8 +449,8 @@
       margin-bottom: 4px;
     }
 
-    .concern-info-label.low { color: var(--green); }
-    .concern-info-label.medium { color: var(--yellow); }
+    .concern-info-label.low { color: #00aa55; }
+    .concern-info-label.medium { color: #d9a822; }
     .concern-info-label.high { color: var(--red); }
     .concern-info-label.unknown { color: var(--muted); }
 
@@ -469,11 +474,13 @@
       border-radius: 16px;
       padding: 28px;
       transition: all 0.25s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
     .region-card:hover {
       border-color: rgba(0,204,102,0.25);
-      background: rgba(0,204,102,0.04);
+      background: var(--bg2);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.06);
     }
 
     .region-flag {
@@ -528,13 +535,14 @@
       align-items: center;
       gap: 12px;
       min-width: 220px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
     .legal-card:hover {
       border-color: rgba(0,204,102,0.3);
-      background: rgba(0,204,102,0.05);
+      background: var(--bg2);
       transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     }
 
     .legal-card-icon {
@@ -586,6 +594,7 @@
       align-items: center;
       justify-content: center;
       font-size: 13px;
+      color: #FFFFFF;
     }
 
     .footer-logo-name {
@@ -617,13 +626,14 @@
 
     /* ── DISCLAIMER BANNER ── */
     .disclaimer-bar {
-      background: rgba(245,200,66,0.07);
-      border-top: 1px solid rgba(245,200,66,0.15);
-      border-bottom: 1px solid rgba(245,200,66,0.15);
+      background: rgba(245,200,66,0.1);
+      border-top: 1px solid rgba(245,200,66,0.3);
+      border-bottom: 1px solid rgba(245,200,66,0.3);
       padding: 14px 24px;
       text-align: center;
       font-size: 12px;
-      color: #a8936a;
+      color: #a37b00;
+      font-weight: 600;
       line-height: 1.6;
     }
 
@@ -640,12 +650,13 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      background: var(--bg3);
+      background: var(--card);
       border: 1px solid var(--card-border);
       border-radius: 100px;
       padding: 8px 18px;
       font-size: 14px;
       font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
     .score-chip-dot {
@@ -668,7 +679,7 @@
   <!-- NAV -->
   <nav>
     <a href="/" class="nav-logo">
-      <div class="nav-logo-icon">🌿</div>
+      <div class="nav-logo-icon" style="color:white;">🌿</div>
       <span class="nav-logo-text">Pure<span>Scan</span></span>
     </a>
     <ul class="nav-links">
@@ -677,8 +688,7 @@
       <li><a href="#legal">Legal</a></li>
     </ul>
     <div class="nav-cta">
-      <a href="terms.html" class="btn-ghost">Terms</a>
-      <a href="privacy.html" class="btn-primary">Privacy Policy</a>
+      <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="btn-primary" target="_blank" rel="noopener noreferrer">Download on App Store</a>
     </div>
   </nav>
 
@@ -696,11 +706,11 @@
     <h1>Know exactly what<br />you're <span class="accent">putting in</span><br />your body.</h1>
     <p>PureScan analyzes ingredients, additives, allergens, and safety scores in seconds — personalized to your diet, region, and sensitivities.</p>
     <div class="hero-buttons">
-      <a href="#features" class="btn-hero-primary">
-        Explore Features <span>↓</span>
+      <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="btn-hero-primary" target="_blank" rel="noopener noreferrer">
+        Get the App <span>→</span>
       </a>
-      <a href="#legal" class="btn-hero-secondary">
-        Legal Documents <span>→</span>
+      <a href="#features" class="btn-hero-secondary">
+        Explore Features <span>↓</span>
       </a>
     </div>
 
@@ -825,7 +835,7 @@
         <div class="score-chip"><div class="score-chip-dot" style="background:var(--red)"></div> Safety Score: 23</div>
         <div class="score-chip">🌾 NOVA Level 1 – Whole Food</div>
         <div class="score-chip">⚡ Ultra-Processed (NOVA 4)</div>
-        <div class="score-chip" style="color:var(--green)">✓ Seed Oil Free</div>
+        <div class="score-chip" style="color:#00aa55">✓ Seed Oil Free</div>
         <div class="score-chip" style="color:var(--red)">⚠ Contains Seed Oils</div>
       </div>
     </div>
