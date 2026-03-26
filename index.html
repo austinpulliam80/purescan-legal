@@ -134,6 +134,34 @@
       box-shadow: 0 6px 24px var(--green-glow);
     }
 
+    .app-store-badge {
+      display: inline-flex;
+    }
+    .app-store-badge img {
+      height: 40px;
+      width: auto;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .app-store-badge:hover img {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+    
+    .app-store-badge-hero {
+      display: inline-flex;
+    }
+    .app-store-badge-hero img {
+      height: 56px;
+      width: auto;
+      transition: transform 0.25s, opacity 0.25s;
+      border-radius: 8px;
+    }
+    .app-store-badge-hero:hover img {
+      transform: translateY(-2px);
+      opacity: 0.95;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
     /* ── HERO ── */
     .hero {
       min-height: 100vh;
@@ -688,7 +716,9 @@
       <li><a href="#legal">Legal</a></li>
     </ul>
     <div class="nav-cta">
-      <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="btn-primary" target="_blank" rel="noopener noreferrer">Download on App Store</a>
+      <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="app-store-badge" target="_blank" rel="noopener noreferrer">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" />
+      </a>
     </div>
   </nav>
 
@@ -706,8 +736,8 @@
     <h1>Know exactly what<br />you're <span class="accent">putting in</span><br />your body.</h1>
     <p>PureScan analyzes ingredients, additives, allergens, and safety scores in seconds — personalized to your diet, region, and sensitivities.</p>
     <div class="hero-buttons">
-      <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="btn-hero-primary" target="_blank" rel="noopener noreferrer">
-        Get the App <span>→</span>
+      <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="app-store-badge-hero" target="_blank" rel="noopener noreferrer">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" />
       </a>
       <a href="#features" class="btn-hero-secondary">
         Explore Features <span>↓</span>

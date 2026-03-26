@@ -140,6 +140,19 @@
       box-shadow: 0 6px 24px var(--green-glow);
     }
 
+    .app-store-badge {
+      display: inline-flex;
+    }
+    .app-store-badge img {
+      height: 40px;
+      width: auto;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .app-store-badge:hover img {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
     /* ── CONTENT ── */
     .page-header {
       padding: 160px 24px 60px;
@@ -290,7 +303,9 @@
     <div class="nav-cta">
       <a href="terms.html" class="btn-ghost active">Terms</a>
       <a href="privacy.html" class="btn-ghost">Privacy Policy</a>
-      <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="btn-primary" target="_blank" rel="noopener noreferrer">Download App</a>
+      <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="app-store-badge" target="_blank" rel="noopener noreferrer">
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" />
+      </a>
     </div>
   </nav>
 
