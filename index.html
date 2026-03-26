@@ -1,55 +1,912 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>PureScan – Legal</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #f4f6f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 400px;
-        }
-        h1 {
-            margin-bottom: 10px;
-        }
-        p {
-            color: #666;
-            margin-bottom: 30px;
-        }
-        .btn {
-            display: block;
-            margin: 15px 0;
-            padding: 12px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            background: #007aff;
-            color: white;
-        }
-        .btn:hover {
-            opacity: 0.9;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PureScan – Know What You're Consuming</title>
+  <meta name="description" content="PureScan is an AI-powered consumer product safety app that instantly analyzes ingredients, additives, allergens, and safety scores — personalized for your health." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #00CC66;
+      --green-dim: rgba(0,204,102,0.12);
+      --green-glow: rgba(0,204,102,0.3);
+      --bg: #090C0F;
+      --bg2: #0F1318;
+      --bg3: #141A21;
+      --card: rgba(255,255,255,0.04);
+      --card-border: rgba(255,255,255,0.08);
+      --text: #F0F4F8;
+      --muted: #8A95A3;
+      --yellow: #F5C842;
+      --red: #E84545;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(9,12,15,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--green);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .nav-logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo-text span { color: var(--green); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-ghost {
+      padding: 9px 20px;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .btn-primary {
+      padding: 9px 20px;
+      background: var(--green);
+      border-radius: 8px;
+      color: #000;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: #00e874;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 24px var(--green-glow);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(0,204,102,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--green-dim);
+      border: 1px solid rgba(0,204,102,0.25);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--green);
+      margin-bottom: 32px;
+      letter-spacing: 0.3px;
+    }
+
+    .hero-badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 84px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 24px;
+      max-width: 800px;
+    }
+
+    .hero h1 .accent { color: var(--green); }
+
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-hero-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      background: var(--green);
+      border-radius: 12px;
+      color: #000;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 700;
+      transition: all 0.25s;
+      box-shadow: 0 0 40px var(--green-glow);
+    }
+
+    .btn-hero-primary:hover {
+      background: #00e874;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px var(--green-glow);
+    }
+
+    .btn-hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.25s;
+    }
+
+    .btn-hero-secondary:hover {
+      border-color: rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.07);
+      transform: translateY(-2px);
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: flex;
+      gap: 48px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 72px;
+      padding-top: 48px;
+      border-top: 1px solid var(--card-border);
+      width: 100%;
+      max-width: 740px;
+    }
+
+    .stat-item { text-align: center; }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -1px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    /* ── SECTION ── */
+    section {
+      padding: 100px 24px;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg3);
+      border: 1px solid var(--card-border);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+
+    /* ── FEATURES ── */
+    .features-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .features-header .section-subtitle {
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--green-glow), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .feature-card:hover {
+      border-color: rgba(0,204,102,0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--green-dim);
+      border: 1px solid rgba(0,204,102,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .feature-title {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .feature-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── CONCERN LEVELS ── */
+    .concern-section {
+      background: var(--bg2);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .concern-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 100px 24px;
+    }
+
+    .concern-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 56px;
+    }
+
+    .concern-card {
+      background: var(--bg3);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: transform 0.2s;
+    }
+
+    .concern-card:hover { transform: translateY(-3px); }
+
+    .concern-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      margin-top: 4px;
+      flex-shrink: 0;
+    }
+
+    .concern-dot.low { background: var(--green); box-shadow: 0 0 10px var(--green-glow); }
+    .concern-dot.medium { background: #F5C842; box-shadow: 0 0 10px rgba(245,200,66,0.4); }
+    .concern-dot.high { background: var(--red); box-shadow: 0 0 10px rgba(232,69,69,0.4); }
+    .concern-dot.unknown { background: #555; }
+
+    .concern-info-label {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .concern-info-label.low { color: var(--green); }
+    .concern-info-label.medium { color: var(--yellow); }
+    .concern-info-label.high { color: var(--red); }
+    .concern-info-label.unknown { color: var(--muted); }
+
+    .concern-info-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── REGULATORY ── */
+    .regions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 56px;
+    }
+
+    .region-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.25s;
+    }
+
+    .region-card:hover {
+      border-color: rgba(0,204,102,0.25);
+      background: rgba(0,204,102,0.04);
+    }
+
+    .region-flag {
+      font-size: 32px;
+      margin-bottom: 14px;
+    }
+
+    .region-name {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .region-body {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .region-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── LEGAL LINKS ── */
+    .legal-section {
+      text-align: center;
+    }
+
+    .legal-cards {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 56px;
+    }
+
+    .legal-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 40px 48px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .legal-card:hover {
+      border-color: rgba(0,204,102,0.3);
+      background: rgba(0,204,102,0.05);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+
+    .legal-card-icon {
+      font-size: 36px;
+    }
+
+    .legal-card-title {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .legal-card-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .legal-card-arrow {
+      font-size: 18px;
+      color: var(--green);
+      margin-top: 8px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--card-border);
+      padding: 40px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 20px;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .footer-logo-mark {
+      width: 26px;
+      height: 26px;
+      background: var(--green);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+
+    .footer-logo-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── DISCLAIMER BANNER ── */
+    .disclaimer-bar {
+      background: rgba(245,200,66,0.07);
+      border-top: 1px solid rgba(245,200,66,0.15);
+      border-bottom: 1px solid rgba(245,200,66,0.15);
+      padding: 14px 24px;
+      text-align: center;
+      font-size: 12px;
+      color: #a8936a;
+      line-height: 1.6;
+    }
+
+    /* ── SCORE MOCK UI ── */
+    .score-demo {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 56px;
+    }
+
+    .score-chip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg3);
+      border: 1px solid var(--card-border);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .score-chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 680px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>PureScan</h1>
-        <p>Food Scanner App – Legal Information</p>
-        <a class="btn" href="terms.html">Terms of Service</a>
-        <a class="btn" href="privacy.html">Privacy Policy</a>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">🌿</div>
+      <span class="nav-logo-text">Pure<span>Scan</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#regulatory">Regulatory</a></li>
+      <li><a href="#legal">Legal</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="terms.html" class="btn-ghost">Terms</a>
+      <a href="privacy.html" class="btn-primary">Privacy Policy</a>
     </div>
+  </nav>
+
+  <!-- DISCLAIMER BAR -->
+  <div class="disclaimer-bar">
+    ⚠️ PureScan is an informational tool only. Scan results are not medical or legal advice. Always consult a qualified professional for health or legal guidance.
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      AI-Powered Product Safety
+    </div>
+    <h1>Know exactly what<br />you're <span class="accent">putting in</span><br />your body.</h1>
+    <p>PureScan analyzes ingredients, additives, allergens, and safety scores in seconds — personalized to your diet, region, and sensitivities.</p>
+    <div class="hero-buttons">
+      <a href="#features" class="btn-hero-primary">
+        Explore Features <span>↓</span>
+      </a>
+      <a href="#legal" class="btn-hero-secondary">
+        Legal Documents <span>→</span>
+      </a>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-value">0–100</div>
+        <div class="stat-label">Safety Score Range</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">4</div>
+        <div class="stat-label">Regulatory Bodies</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">18+</div>
+        <div class="stat-label">Allergen Filters</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">11</div>
+        <div class="stat-label">Dietary Preferences</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="features-header">
+      <div class="section-label">What PureScan Analyzes</div>
+      <h2 class="section-title">Every scan tells the<br />full story.</h2>
+      <p class="section-subtitle">Our AI engine breaks down every ingredient with scientific reasoning, regulatory context, and personalized risk assessment.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔬</div>
+        <div class="feature-title">Ingredient Risk Breakdown</div>
+        <div class="feature-desc">Every ingredient classified as No Risk, Negligible, Low, Moderate, or High — with scientific rationale and E-number references.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧪</div>
+        <div class="feature-title">Harmful Additive Detection</div>
+        <div class="feature-desc">Automatically flags additives red-listed or under review by the FDA, EFSA, FSA, or Health Canada depending on your region.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌿</div>
+        <div class="feature-title">Seed Oil Scanner</div>
+        <div class="feature-desc">Detects canola, soybean, sunflower, corn, safflower, grapeseed, and cottonseed oils — a critical flag for health-conscious users.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚠️</div>
+        <div class="feature-title">Heavy Metal Risk Assessment</div>
+        <div class="feature-desc">Estimates potential exposure to Lead, Cadmium, Arsenic, and Mercury — calibrated against FDA action levels and EU standards.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <div class="feature-title">Packaging Risk Analysis</div>
+        <div class="feature-desc">Material type, BPA concerns, microplastic leaching potential, recyclability grade, and environmental impact summary.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏢</div>
+        <div class="feature-title">Conglomerate Ownership</div>
+        <div class="feature-desc">Transparent parent-company ownership chain so you know exactly who makes what you're buying — powered by Wikidata.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🍽️</div>
+        <div class="feature-title">NOVA Processing Level</div>
+        <div class="feature-desc">Classifies every product on the NOVA scale (1–4), from whole foods to ultra-processed — a key global nutrition research standard.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">✅</div>
+        <div class="feature-title">Safer Alternatives</div>
+        <div class="feature-desc">Every scan surfaces 2–3 real-world product alternatives with higher safety scores when your scanned item scores poorly.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-title">Personalized Profile</div>
+        <div class="feature-desc">Set your dietary preferences, allergens, region, and product categories — and every scan is calibrated specifically for you.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONCERN LEVELS -->
+  <div class="concern-section">
+    <div class="concern-inner">
+      <div class="section-label">Concern System</div>
+      <h2 class="section-title">Instant visual clarity<br />at a glance.</h2>
+      <p class="section-subtitle">PureScan's color-coded concern system makes risk immediately understandable — no decoding required.</p>
+
+      <div class="concern-grid">
+        <div class="concern-card">
+          <div class="concern-dot low"></div>
+          <div>
+            <div class="concern-info-label low">Low Concern</div>
+            <div class="concern-info-desc">Product meets clean standards — ingredients are generally recognized as safe with no significant flags for your profile.</div>
+          </div>
+        </div>
+        <div class="concern-card">
+          <div class="concern-dot medium"></div>
+          <div>
+            <div class="concern-info-label medium">Medium Concern</div>
+            <div class="concern-info-desc">Some additives or processing methods warrant attention. Use with awareness depending on your sensitivities.</div>
+          </div>
+        </div>
+        <div class="concern-card">
+          <div class="concern-dot high"></div>
+          <div>
+            <div class="concern-info-label high">High Concern</div>
+            <div class="concern-info-desc">Contains ingredients flagged by major regulatory bodies or our AI as posing notable health or safety concerns.</div>
+          </div>
+        </div>
+        <div class="concern-card">
+          <div class="concern-dot unknown"></div>
+          <div>
+            <div class="concern-info-label unknown">Unknown</div>
+            <div class="concern-info-desc">Insufficient data to assess — product information may be incomplete or the ingredient list could not be verified.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="score-demo">
+        <div class="score-chip"><div class="score-chip-dot" style="background:var(--green)"></div> Safety Score: 91</div>
+        <div class="score-chip"><div class="score-chip-dot" style="background:var(--yellow)"></div> Safety Score: 52</div>
+        <div class="score-chip"><div class="score-chip-dot" style="background:var(--red)"></div> Safety Score: 23</div>
+        <div class="score-chip">🌾 NOVA Level 1 – Whole Food</div>
+        <div class="score-chip">⚡ Ultra-Processed (NOVA 4)</div>
+        <div class="score-chip" style="color:var(--green)">✓ Seed Oil Free</div>
+        <div class="score-chip" style="color:var(--red)">⚠ Contains Seed Oils</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REGULATORY BODIES -->
+  <section id="regulatory">
+    <div class="section-label">Regulatory Coverage</div>
+    <h2 class="section-title">Globally calibrated<br />safety standards.</h2>
+    <p class="section-subtitle">PureScan maps your scan results against the actual regulatory frameworks that govern what's in your food and personal care products.</p>
+
+    <div class="regions-grid">
+      <div class="region-card">
+        <div class="region-flag">🇺🇸</div>
+        <div class="region-name">United States</div>
+        <div class="region-body">FDA</div>
+        <div class="region-desc">Food and Drug Administration standards including 21 CFR, GRAS classifications, action levels for heavy metals, and additive approval status.</div>
+      </div>
+      <div class="region-card">
+        <div class="region-flag">🇪🇺</div>
+        <div class="region-name">European Union</div>
+        <div class="region-body">EFSA</div>
+        <div class="region-desc">European Food Safety Authority opinions, EU permitted additive lists, E-number classifications, and REACH chemical regulations.</div>
+      </div>
+      <div class="region-card">
+        <div class="region-flag">🇬🇧</div>
+        <div class="region-name">United Kingdom</div>
+        <div class="region-body">FSA</div>
+        <div class="region-desc">Food Standards Agency post-Brexit guidance, retained EU law classifications, and UK-specific food additive approvals.</div>
+      </div>
+      <div class="region-card">
+        <div class="region-flag">🇨🇦</div>
+        <div class="region-name">Canada</div>
+        <div class="region-body">Health Canada</div>
+        <div class="region-desc">Health Canada's List of Permitted Food Additives, maximum levels, and Natural Health Products Directorate classifications.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEGAL LINKS -->
+  <section id="legal" style="padding-bottom: 120px;">
+    <div class="legal-section">
+      <div class="section-label">Legal & Privacy</div>
+      <h2 class="section-title">Transparent by design.</h2>
+      <p class="section-subtitle" style="margin: 0 auto;">Read our full Terms of Service and Privacy Policy — written in plain language so you know exactly how PureScan operates and handles your data.</p>
+
+      <div class="legal-cards">
+        <a href="terms.html" class="legal-card" id="terms-link">
+          <div class="legal-card-icon">📋</div>
+          <div class="legal-card-title">Terms of Service</div>
+          <div class="legal-card-subtitle">Usage rules, subscriptions & limits of liability</div>
+          <div class="legal-card-arrow">→</div>
+        </a>
+        <a href="privacy.html" class="legal-card" id="privacy-link">
+          <div class="legal-card-icon">🔐</div>
+          <div class="legal-card-title">Privacy Policy</div>
+          <div class="legal-card-subtitle">Data collection, usage & your rights</div>
+          <div class="legal-card-arrow">→</div>
+        </a>
+      </div>
+
+      <p style="margin-top: 40px; font-size: 13px; color: var(--muted); max-width: 540px; margin-left: auto; margin-right: auto; line-height: 1.7;">
+        For privacy inquiries or data deletion requests, contact us at
+        <a href="mailto:support@purescanapp.com" style="color: var(--green); text-decoration: none;">support@purescanapp.com</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/" class="footer-logo">
+      <div class="footer-logo-mark">🌿</div>
+      <span class="footer-logo-name">PureScan</span>
+    </a>
+    <ul class="footer-links">
+      <li><a href="terms.html">Terms of Service</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+      <li><a href="mailto:support@purescanapp.com">Contact</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 PureScan. All rights reserved.</span>
+  </footer>
+
 </body>
 </html>
