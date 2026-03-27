@@ -151,32 +151,15 @@
       display: inline-flex;
     }
     .app-store-badge-hero img {
-      height: 48px;
+      height: 56px;
       width: auto;
       transition: transform 0.25s, opacity 0.25s;
+      border-radius: 8px;
     }
     .app-store-badge-hero:hover img {
       transform: translateY(-2px);
       opacity: 0.95;
-    }
-    
-    .hero-video-wrapper {
-      margin: 64px auto 80px;
-      width: 100%;
-      max-width: 760px;
-      aspect-ratio: 16 / 9;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 0 140px rgba(0,204,102,0.3);
-      position: relative;
-      z-index: 10;
-    }
-    
-    .hero-video-wrapper video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
 
     /* ── HERO ── */
@@ -282,23 +265,21 @@
     .btn-hero-secondary {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
       gap: 10px;
-      height: 48px;
-      padding: 0 24px;
-      background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 8px;
+      padding: 16px 32px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
       color: var(--text);
       text-decoration: none;
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 600;
       transition: all 0.25s;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     }
 
     .btn-hero-secondary:hover {
-      border-color: #CBD5E1;
+      border-color: rgba(0,0,0,0.15);
       background: var(--bg2);
       transform: translateY(-2px);
     }
@@ -761,13 +742,6 @@
       <a href="#features" class="btn-hero-secondary">
         Explore Features <span>↓</span>
       </a>
-    </div>
-
-    <div class="hero-video-wrapper">
-      <video autoplay loop muted playsinline>
-        <source src="app-demo-hevc.mp4" type="video/mp4; codecs=hvc1">
-        <source src="app-demo.webm" type="video/webm">
-      </video>
     </div>
 
     <div class="stats-row">
