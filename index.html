@@ -193,6 +193,7 @@
       width: 100%;
       margin: 0 auto;
       flex-direction: row-reverse; /* Swap sides! Text on right, Visual on Left */
+      transform: translateX(-40px); /* Shift entire hero slightly leftward */
     }
 
     .hero-content {
@@ -339,6 +340,7 @@
         flex-direction: column; /* Reverts to vertical stack on mobile */
         text-align: center;
         gap: 60px;
+        transform: none; /* Reset shift on mobile */
       }
       .hero-content {
         display: flex;
