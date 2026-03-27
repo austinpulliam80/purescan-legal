@@ -166,11 +166,9 @@
     .hero {
       min-height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      text-align: center;
-      padding: 120px 24px 80px;
+      padding: 160px 24px 80px;
       position: relative;
       overflow: hidden;
     }
@@ -178,13 +176,50 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 900px;
-      height: 600px;
-      background: radial-gradient(ellipse at center, rgba(0,204,102,0.15) 0%, transparent 70%);
+      top: -100px;
+      right: -200px;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle at center, rgba(0,204,102,0.1) 0%, transparent 70%);
       pointer-events: none;
+    }
+
+    .hero-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 60px;
+      max-width: 1140px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      flex: 1;
+      max-width: 580px;
+      text-align: left;
+    }
+
+    .hero-visual {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+    }
+
+    .hero-phone {
+      width: 100%;
+      max-width: 440px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 30px 60px rgba(0,204,102,0.15));
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-15px) rotate(-1deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
     }
 
     .hero-badge {
@@ -198,7 +233,7 @@
       font-size: 13px;
       font-weight: 600;
       color: #00aa55;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
       letter-spacing: 0.3px;
     }
 
@@ -216,21 +251,19 @@
     }
 
     .hero h1 {
-      font-size: clamp(42px, 7vw, 84px);
+      font-size: clamp(42px, 5.5vw, 68px);
       font-weight: 900;
       line-height: 1.05;
       letter-spacing: -2px;
       margin-bottom: 24px;
-      max-width: 800px;
     }
 
     .hero h1 .accent { color: var(--green); }
 
     .hero p {
-      font-size: clamp(16px, 2vw, 20px);
+      font-size: clamp(16px, 1.8vw, 18px);
       color: var(--muted);
-      max-width: 540px;
-      margin: 0 auto 48px;
+      margin-bottom: 40px;
       line-height: 1.7;
     }
 
@@ -238,28 +271,7 @@
       display: flex;
       gap: 16px;
       flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .btn-hero-primary {
-      display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 16px 32px;
-      background: var(--green);
-      border-radius: 12px;
-      color: #FFFFFF;
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 700;
-      transition: all 0.25s;
-      box-shadow: 0 8px 30px var(--green-glow);
-    }
-
-    .btn-hero-primary:hover {
-      background: #00b359;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px var(--green-glow);
     }
 
     .btn-hero-secondary {
@@ -276,6 +288,7 @@
       font-weight: 600;
       transition: all 0.25s;
       box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      height: 56px; /* Match app store badge height */
     }
 
     .btn-hero-secondary:hover {
@@ -287,30 +300,63 @@
     /* ── STATS ── */
     .stats-row {
       display: flex;
-      gap: 48px;
-      justify-content: center;
+      gap: 40px;
       flex-wrap: wrap;
-      margin-top: 72px;
-      padding-top: 48px;
+      margin-top: 60px;
+      padding-top: 40px;
       border-top: 1px solid var(--card-border);
-      width: 100%;
-      max-width: 740px;
     }
 
-    .stat-item { text-align: center; }
+    .stat-item { text-align: left; }
 
     .stat-value {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 800;
-      color: var(--green);
+      color: var(--text);
       letter-spacing: -1px;
     }
+    
+    .stat-value span { color: var(--green); }
 
     .stat-label {
       font-size: 13px;
       color: var(--muted);
       font-weight: 500;
       margin-top: 4px;
+    }
+
+    /* Responsive Hero adjustments */
+    @media (max-width: 960px) {
+      .hero {
+        padding: 120px 24px 60px;
+      }
+      .hero-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 60px;
+      }
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .hero-visual {
+        justify-content: center;
+        width: 100%;
+      }
+      .hero-phone {
+        max-width: 320px;
+      }
+      .hero-buttons {
+        justify-content: center;
+      }
+      .stats-row {
+        justify-content: center;
+      }
+      .stat-item {
+        text-align: center;
+      }
     }
 
     /* ── SECTION ── */
@@ -729,37 +775,46 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      AI-Powered Product Safety
-    </div>
-    <h1>Know exactly what<br />you're <span class="accent">putting in</span><br />your body.</h1>
-    <p>PureScan analyzes ingredients, additives, allergens, and safety scores in seconds — personalized to your diet, region, and sensitivities.</p>
-    <div class="hero-buttons">
-      <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="app-store-badge-hero" target="_blank" rel="noopener noreferrer">
-        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" />
-      </a>
-      <a href="#features" class="btn-hero-secondary">
-        Explore Features <span>↓</span>
-      </a>
-    </div>
-
-    <div class="stats-row">
-      <div class="stat-item">
-        <div class="stat-value">0–100</div>
-        <div class="stat-label">Safety Score Range</div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          AI-Powered Product Safety
+        </div>
+        <h1>Know exactly what<br />you're <span class="accent">putting in</span><br />your body.</h1>
+        <p>PureScan analyzes ingredients, additives, allergens, and safety scores in seconds — personalized to your diet, region, and sensitivities.</p>
+        
+        <div class="hero-buttons">
+          <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="app-store-badge-hero" target="_blank" rel="noopener noreferrer">
+            <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" />
+          </a>
+          <a href="#features" class="btn-hero-secondary">
+            Explore Features <span>↓</span>
+          </a>
+        </div>
+        
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">0–100</div>
+            <div class="stat-label">Safety Score Range</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">4</div>
+            <div class="stat-label">Regulatory Bodies</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">18<span>+</span></div>
+            <div class="stat-label">Allergen Filters</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">11</div>
+            <div class="stat-label">Dietary Preferences</div>
+          </div>
+        </div>
       </div>
-      <div class="stat-item">
-        <div class="stat-value">4</div>
-        <div class="stat-label">Regulatory Bodies</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">18+</div>
-        <div class="stat-label">Allergen Filters</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-value">11</div>
-        <div class="stat-label">Dietary Preferences</div>
+      
+      <div class="hero-visual">
+        <img src="hero-phone.png" alt="Pure Scan App Home Profile Interface" class="hero-phone" />
       </div>
     </div>
   </div>
