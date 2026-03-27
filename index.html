@@ -168,8 +168,6 @@
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 0 140px rgba(0,204,102,0.3);
-      border: 8px solid #FFFFFF;
-      background: #000;
       position: relative;
       z-index: 10;
     }
@@ -766,7 +764,10 @@
     </div>
 
     <div class="hero-video-wrapper">
-      <video src="app-demo.mp4" autoplay loop muted playsinline></video>
+      <video autoplay loop muted playsinline>
+        <source src="app-demo-hevc.mp4" type="video/mp4; codecs=hvc1">
+        <source src="app-demo.webm" type="video/webm">
+      </video>
     </div>
 
     <div class="stats-row">
