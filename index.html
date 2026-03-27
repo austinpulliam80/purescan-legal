@@ -176,11 +176,11 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: -100px;
-      right: -200px;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle at center, rgba(0,204,102,0.1) 0%, transparent 70%);
+      top: 0px;
+      left: -200px; /* Moved gradient to match phone on the left */
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle at center, rgba(0,204,102,0.1) 0%, transparent 60%);
       pointer-events: none;
     }
 
@@ -188,10 +188,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 60px;
-      max-width: 1140px;
+      gap: 80px;
+      max-width: 1200px;
       width: 100%;
       margin: 0 auto;
+      flex-direction: row-reverse; /* Swap sides! Text on right, Visual on Left */
     }
 
     .hero-content {
@@ -203,7 +204,7 @@
     .hero-visual {
       flex: 1;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center; /* Center the phone perfectly in its left column */
       position: relative;
     }
 
@@ -251,9 +252,9 @@
     }
 
     .hero h1 {
-      font-size: clamp(42px, 5.5vw, 68px);
+      font-size: clamp(42px, 5vw, 68px);
       font-weight: 900;
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: -2px;
       margin-bottom: 24px;
     }
@@ -261,7 +262,7 @@
     .hero h1 .accent { color: var(--green); }
 
     .hero p {
-      font-size: clamp(16px, 1.8vw, 18px);
+      font-size: clamp(16px, 1.6vw, 18px);
       color: var(--muted);
       margin-bottom: 40px;
       line-height: 1.7;
@@ -300,17 +301,19 @@
     /* ── STATS ── */
     .stats-row {
       display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-      margin-top: 60px;
-      padding-top: 40px;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-top: 56px;
+      padding-top: 36px;
       border-top: 1px solid var(--card-border);
+      width: 100%;
     }
 
     .stat-item { text-align: left; }
 
     .stat-value {
-      font-size: 28px;
+      font-size: 26px; /* Slightly smaller to fit gracefully */
       font-weight: 800;
       color: var(--text);
       letter-spacing: -1px;
@@ -319,10 +322,12 @@
     .stat-value span { color: var(--green); }
 
     .stat-label {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--muted);
-      font-weight: 500;
+      font-weight: 600;
       margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     /* Responsive Hero adjustments */
@@ -331,7 +336,7 @@
         padding: 120px 24px 60px;
       }
       .hero-container {
-        flex-direction: column;
+        flex-direction: column; /* Reverts to vertical stack on mobile */
         text-align: center;
         gap: 60px;
       }
@@ -353,6 +358,7 @@
       }
       .stats-row {
         justify-content: center;
+        flex-wrap: wrap; /* Allow wrapping on small screens */
       }
       .stat-item {
         text-align: center;
@@ -808,7 +814,7 @@
           </div>
           <div class="stat-item">
             <div class="stat-value">11</div>
-            <div class="stat-label">Dietary Preferences</div>
+            <div class="stat-label">Diet Preferences</div>
           </div>
         </div>
       </div>
