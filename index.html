@@ -161,6 +161,24 @@
       opacity: 0.95;
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     }
+    
+    .hero-video-wrapper {
+      margin-top: 64px;
+      width: 100%;
+      max-width: 280px;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,204,102,0.15), 0 10px 30px rgba(0,0,0,0.1);
+      border: 8px solid #FFFFFF;
+      background: #000;
+      position: relative;
+    }
+    
+    .hero-video-wrapper video {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
 
     /* ── HERO ── */
     .hero {
@@ -742,6 +760,10 @@
       <a href="#features" class="btn-hero-secondary">
         Explore Features <span>↓</span>
       </a>
+    </div>
+
+    <div class="hero-video-wrapper">
+      <video src="app-demo.mov" autoplay loop muted playsinline></video>
     </div>
 
     <div class="stats-row">
