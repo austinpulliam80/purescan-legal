@@ -47,7 +47,7 @@
         // 1. Initialize Supabase connecting to the exact same DB as the iOS app
         const SUPABASE_URL = 'https://pfurmzdusktgcnzlnzdf.supabase.co';
         const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmdXJtemR1c2t0Z2NuemxuemRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg0MjI5MDIsImV4cCI6MjA4Mzk5ODkwMn0.TP4c52E3BsKSRXovV3l-Li7DAFEJsrvHoYveli2r-2Q';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         // 2. Parse URL for /scan/<uuid> on GitHub Pages 404 handler
         const path = window.location.pathname;
@@ -60,11 +60,11 @@
                 return;
             }
 
-        const { data, error } = await supabase With: const { data, error } = await supabaseClient
+            const scanId = scanMatch[1];
 
             try {
                 // Fetch the scan's raw_json representation from Supabase 'scans' table
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('scans')
                     .select('raw_json')
                     .eq('id', scanId)
