@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PURE Scan Result</title>
+    <!-- Tailwind CDN for Rapid Mobile UI Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pureGreen: '#22c55e'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50 antialiased font-sans flex flex-col items-center justify-center min-h-screen">
+
+    <!-- Loading State -->
+    <div id="loading" class="text-center p-10 flex flex-col justify-center items-center h-full w-full absolute inset-0 bg-gray-50">
+        <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-4 border-pureGreen border-solid"></div>
+        <p class="mt-4 text-gray-500 font-semibold animation-pulse">Loading scan results...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error" class="hidden text-center p-10 w-full max-w-md">
+        <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-6">
+            <svg class="w-10 h-10 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Scan Not Found</h1>
+        <p class="text-gray-500 mb-8">The scan you are looking for does not exist, or the link is invalid.</p>
+        <a href="https://pure-scan.app" class="inline-block bg-pureGreen text-white px-8 py-3 rounded-full font-bold shadow hover:bg-green-600 transition-colors">Learn about PURE</a>
+    </div>
+
+    <!-- MAIN UI CONTAINER (matches mobile app UI dimensions) -->
+    <div id="scan-container" class="hidden w-full max-w-md bg-slate-50 shadow-2xl min-h-screen relative overflow-x-hidden flex flex-col">
+        <!-- Injected via JavaScript -->
+    </div>
+
+    <script>
+        // 1. Initialize Supabase connecting to the exact same DB as the iOS app
+        const SUPABASE_URL = 'https://pfurmzdusktgcnzlnzdf.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBmdXJtemR1c2t0Z2NuemxuemRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg0MjI5MDIsImV4cCI6MjA4Mzk5ODkwMn0.TP4c52E3BsKSRXovV3l-Li7DAFEJsrvHoYveli2r-2Q';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // 2. Parse URL for /scan/<uuid> on GitHub Pages 404 handler
+        const path = window.location.pathname;
+        const scanMatch = path.match(/^\/scan\/([a-fA-F0-9\-]+)\/?$/);
+
+        async function init() {
+            if (!scanMatch) {
+                // Return generic 404 for non-scan paths
+                showError();
+                return;
+            }
+
+            const scanId = scanMatch[1];
+
+            try {
+                // Fetch the scan's raw_json representation from Supabase 'scans' table
+                const { data, error } = await supabase
+                    .from('scans')
+                    .select('raw_json')
+                    .eq('id', scanId)
+                    .single();
+
+                if (error || !data || !data.raw_json) {
+                    console.error("Supabase Error or not found:", error);
+                    throw new Error("Scan missing");
+                }
+
+                renderScan(data.raw_json);
+            } catch (err) {
+                showError();
+            }
+        }
+
+        function showError() {
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('error').classList.remove('hidden');
+            document.title = "Not Found - PURE";
+        }
+
+        function getScoreColor(result) {
+            let score = result.healthinessScore;
+            if (score === undefined || score === null) {
+                score = result.safetyScore !== undefined ? (result.safetyScore / 10.0) : 5.0;
+            }
+            if (score <= 3.0) return '#dc2626'; // Red
+            if (score <= 5.5) return '#f97316'; // Orange
+            if (score <= 7.5) return '#eab308'; // Yellow
+            return '#22c55e'; // Green
+        }
+
+        function renderScan(result) {
+            document.title = `${result.productName} by ${result.brandName} - PURE Scan`;
+            document.getElementById('loading').classList.add('hidden');
+            
+            const container = document.getElementById('scan-container');
+            container.classList.remove('hidden');
+
+            const scoreColor = getScoreColor(result);
+            let rawScore = result.healthinessScore !== undefined 
+                ? result.healthinessScore 
+                : (result.safetyScore !== undefined ? result.safetyScore / 10.0 : 0);
+            const scoreDisplay = rawScore.toFixed(1);
+
+            // Handle missing image gracefully
+            let imageHtml = '';
+            if (result.productImageURL) {
+                imageHtml = `<img src="${result.productImageURL}" alt="${result.productName}" class="w-40 h-56 object-cover mx-auto rounded-xl shadow-2xl z-10 relative bg-white border border-gray-100">`;
+            } else {
+                imageHtml = `<div class="w-40 h-56 mx-auto rounded-xl shadow-2xl flex items-center justify-center z-10 relative bg-white border border-gray-100">
+                                <span class="text-sm text-gray-400 font-semibold uppercase">No Image</span>
+                             </div>`;
+            }
+
+            container.innerHTML = `
+                <!-- Gradient Hero Section -->
+                <div class="relative w-full pt-10 pb-20" style="background: linear-gradient(to bottom, ${scoreColor}60, ${scoreColor}05, #f8fafc);">
+                    <!-- Watermark Logo Outline -->
+                    <svg class="absolute top-10 -right-5 w-64 h-64 opacity-5 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16z" />
+                    </svg>
+
+                    <!-- Top Bar -->
+                    <div class="absolute top-0 w-full flex justify-center py-4">
+                        <span class="font-bold tracking-widest text-sm" style="color: ${scoreColor}">PURE</span>
+                    </div>
+
+                    <div class="relative z-10 flex flex-col items-center justify-center mt-6">
+                        ${imageHtml}
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="px-5 pb-16 -mt-10 z-20 relative flex-1 flex flex-col gap-5">
+                    
+                    <!-- Product Title & massive Score badge -->
+                    <div class="bg-white rounded-2xl shadow-lg p-5 flex flex-row items-center justify-between border-t-[6px]" style="border-color: ${scoreColor};">
+                        <div class="flex flex-col flex-1 pr-4">
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">${result.brandName || "Unknown Brand"}</span>
+                            <h2 class="text-xl font-bold text-gray-900 leading-tight">${result.productName}</h2>
+                        </div>
+                        <div class="w-20 h-20 rounded-full flex flex-col items-center justify-center border-[6px]" style="border-color: ${scoreColor}; flex-shrink: 0;">
+                            <span class="text-2xl font-black text-gray-900 leading-none">${scoreDisplay}</span>
+                            <span class="text-[9px] text-gray-500 font-bold uppercase mt-1">/ 10.0</span>
+                        </div>
+                    </div>
+
+                    <!-- PURE Says Box -->
+                    ${result.takeaway ? `
+                    <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col gap-2 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-20 h-20 rounded-full blur-xl -mr-8 -mt-8 opacity-50" style="background-color: ${scoreColor}"></div>
+                        <h3 class="font-bold flex items-center gap-2" style="color: ${scoreColor}">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 10-1.414 1.414L12.172 6.414A2 2 0 0015 6V3h-4z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M4 8a1 1 0 011-1h2.586l-6.293 6.293a1 1 0 101.414 1.414L9.172 8.414A2 2 0 0012 8V5H8a1 1 0 01-1-1z" clip-rule="evenodd" /></svg>
+                            PURE Says:
+                        </h3>
+                        <p class="text-gray-700 text-sm leading-relaxed relative z-10">${result.takeaway}</p>
+                    </div>
+                    ` : ''}
+
+                    <!-- Quick Overview -->
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 flex flex-col gap-4">
+                        <h3 class="font-bold text-gray-900">Quick Overview</h3>
+                        <div class="flex flex-col gap-3 text-sm">
+                            <div class="flex justify-between items-center text-gray-600">
+                                <span>Harmful Additives</span>
+                                <span class="font-bold px-3 py-1 rounded-full ${result.harmfulAdditivesCount > 0 ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}">${result.harmfulAdditivesCount || 0}</span>
+                            </div>
+                            <div class="flex justify-between items-center text-gray-600">
+                                <span>Contains Seed Oils</span>
+                                <span class="font-bold px-3 py-1 rounded-full ${result.hasSeedOils ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}">${result.hasSeedOils ? 'Yes' : 'No'}</span>
+                            </div>
+                             <div class="flex justify-between items-center text-gray-600">
+                                <span>Ultra Processed</span>
+                                <span class="font-bold px-3 py-1 rounded-full ${result.isUltraProcessed ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}">${result.isUltraProcessed ? 'Yes' : 'No'}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="mt-4 pb-10 text-center flex flex-col items-center">
+                        <div class="w-full h-px bg-gray-200 mb-6"></div>
+                        <p class="text-gray-500 text-sm mb-4">Want to scan your own groceries?</p>
+                        <a href="https://pure-scan.app" class="bg-black text-white font-bold py-3.5 px-6 rounded-full shadow-lg hover:scale-105 transform transition duration-150 ease-out w-full flex justify-center items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+                            Download PURE Free
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Fire initialization on load!
+        init();
+    </script>
+</body>
+</html>
