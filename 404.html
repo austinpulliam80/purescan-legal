@@ -60,7 +60,7 @@
                 return;
             }
 
-            const scanId = scanMatch[1];
+        const { data, error } = await supabase With: const { data, error } = await supabaseClient
 
             try {
                 // Fetch the scan's raw_json representation from Supabase 'scans' table
