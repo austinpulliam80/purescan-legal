@@ -63,19 +63,19 @@
             const scanId = scanMatch[1];
 
             try {
-                // Fetch the scan's raw_json representation from Supabase 'scans' table
+                // Fetch the scan's FULL row representation from Supabase 'scans' table
                 const { data, error } = await supabaseClient
                     .from('scans')
-                    .select('raw_json')
+                    .select('*')
                     .eq('id', scanId)
                     .single();
 
-                if (error || !data || !data.raw_json) {
+                if (error || !data) {
                     console.error("Supabase Error or not found:", error);
                     throw new Error("Scan missing");
                 }
 
-                renderScan(data.raw_json);
+                renderScan(data);
             } catch (err) {
                 showError();
             }
@@ -87,34 +87,49 @@
             document.title = "Not Found - PURE";
         }
 
-        function getScoreColor(result) {
-            let score = result.healthinessScore;
-            if (score === undefined || score === null) {
-                score = result.safetyScore !== undefined ? (result.safetyScore / 10.0) : 5.0;
-            }
+        function getScoreColor(score) {
             if (score <= 3.0) return '#dc2626'; // Red
             if (score <= 5.5) return '#f97316'; // Orange
             if (score <= 7.5) return '#eab308'; // Yellow
             return '#22c55e'; // Green
         }
 
-        function renderScan(result) {
-            document.title = `${result.productName} by ${result.brandName} - PURE Scan`;
+        function renderScan(data) {
+            // iOS App Saves ScanResult inside raw_json using `snake_case` CodingKeys
+            const result = data.raw_json || {};
+            
+            // Extract the fields from snake_case raw_json, with fallbacks to top-level DB columns
+            const productName = result.product_name || data.product_name || "Unknown Product";
+            const brandName = result.brand_name || "Unknown Brand";
+            const imageUrl = result.product_image_url || data.image_url;
+            const takeaway = result.takeaway || "";
+            const harmfulAdditives = result.harmful_additives_count || 0;
+            const hasSeedOils = result.has_seed_oils ? true : false;
+            const isUltraProcessed = result.is_ultra_processed ? true : false;
+            
+            let healthScore = result.healthiness_score;
+            if (healthScore === undefined || healthScore === null) {
+                if (result.safety_score !== undefined && result.safety_score !== null) {
+                    healthScore = result.safety_score / 10.0;
+                } else if (data.score !== undefined && data.score !== null) {
+                    healthScore = data.score / 10.0;
+                } else {
+                    healthScore = 0;
+                }
+            }
+            const scoreDisplay = healthScore.toFixed(1);
+            const scoreColor = getScoreColor(healthScore);
+
+            document.title = `${productName} by ${brandName} - PURE Scan`;
             document.getElementById('loading').classList.add('hidden');
             
             const container = document.getElementById('scan-container');
             container.classList.remove('hidden');
 
-            const scoreColor = getScoreColor(result);
-            let rawScore = result.healthinessScore !== undefined 
-                ? result.healthinessScore 
-                : (result.safetyScore !== undefined ? result.safetyScore / 10.0 : 0);
-            const scoreDisplay = rawScore.toFixed(1);
-
             // Handle missing image gracefully
             let imageHtml = '';
-            if (result.productImageURL) {
-                imageHtml = `<img src="${result.productImageURL}" alt="${result.productName}" class="w-40 h-56 object-cover mx-auto rounded-xl shadow-2xl z-10 relative bg-white border border-gray-100">`;
+            if (imageUrl) {
+                imageHtml = `<img src="${imageUrl}" alt="${productName}" class="w-40 h-56 object-cover mx-auto rounded-xl shadow-2xl z-10 relative bg-white border border-gray-100">`;
             } else {
                 imageHtml = `<div class="w-40 h-56 mx-auto rounded-xl shadow-2xl flex items-center justify-center z-10 relative bg-white border border-gray-100">
                                 <span class="text-sm text-gray-400 font-semibold uppercase">No Image</span>
@@ -145,8 +160,8 @@
                     <!-- Product Title & massive Score badge -->
                     <div class="bg-white rounded-2xl shadow-lg p-5 flex flex-row items-center justify-between border-t-[6px]" style="border-color: ${scoreColor};">
                         <div class="flex flex-col flex-1 pr-4">
-                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">${result.brandName || "Unknown Brand"}</span>
-                            <h2 class="text-xl font-bold text-gray-900 leading-tight">${result.productName}</h2>
+                            <span class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">${brandName}</span>
+                            <h2 class="text-xl font-bold text-gray-900 leading-tight">${productName}</h2>
                         </div>
                         <div class="w-20 h-20 rounded-full flex flex-col items-center justify-center border-[6px]" style="border-color: ${scoreColor}; flex-shrink: 0;">
                             <span class="text-2xl font-black text-gray-900 leading-none">${scoreDisplay}</span>
@@ -155,14 +170,14 @@
                     </div>
 
                     <!-- PURE Says Box -->
-                    ${result.takeaway ? `
+                    ${takeaway ? `
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex flex-col gap-2 relative overflow-hidden">
                         <div class="absolute top-0 right-0 w-20 h-20 rounded-full blur-xl -mr-8 -mt-8 opacity-50" style="background-color: ${scoreColor}"></div>
                         <h3 class="font-bold flex items-center gap-2" style="color: ${scoreColor}">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 10-1.414 1.414L12.172 6.414A2 2 0 0015 6V3h-4z" clip-rule="evenodd" /><path fill-rule="evenodd" d="M4 8a1 1 0 011-1h2.586l-6.293 6.293a1 1 0 101.414 1.414L9.172 8.414A2 2 0 0012 8V5H8a1 1 0 01-1-1z" clip-rule="evenodd" /></svg>
                             PURE Says:
                         </h3>
-                        <p class="text-gray-700 text-sm leading-relaxed relative z-10">${result.takeaway}</p>
+                        <p class="text-gray-700 text-sm leading-relaxed relative z-10">${takeaway}</p>
                     </div>
                     ` : ''}
 
@@ -172,15 +187,15 @@
                         <div class="flex flex-col gap-3 text-sm">
                             <div class="flex justify-between items-center text-gray-600">
                                 <span>Harmful Additives</span>
-                                <span class="font-bold px-3 py-1 rounded-full ${result.harmfulAdditivesCount > 0 ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}">${result.harmfulAdditivesCount || 0}</span>
+                                <span class="font-bold px-3 py-1 rounded-full ${harmfulAdditives > 0 ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}">${harmfulAdditives}</span>
                             </div>
                             <div class="flex justify-between items-center text-gray-600">
                                 <span>Contains Seed Oils</span>
-                                <span class="font-bold px-3 py-1 rounded-full ${result.hasSeedOils ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}">${result.hasSeedOils ? 'Yes' : 'No'}</span>
+                                <span class="font-bold px-3 py-1 rounded-full ${hasSeedOils ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}">${hasSeedOils ? 'Yes' : 'No'}</span>
                             </div>
                              <div class="flex justify-between items-center text-gray-600">
                                 <span>Ultra Processed</span>
-                                <span class="font-bold px-3 py-1 rounded-full ${result.isUltraProcessed ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}">${result.isUltraProcessed ? 'Yes' : 'No'}</span>
+                                <span class="font-bold px-3 py-1 rounded-full ${isUltraProcessed ? 'bg-orange-50 text-orange-600' : 'bg-green-50 text-green-600'}">${isUltraProcessed ? 'Yes' : 'No'}</span>
                             </div>
                         </div>
                     </div>
