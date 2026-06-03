@@ -12,18 +12,20 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green: #00CC66;
-      --green-dim: rgba(0,204,102,0.12);
-      --green-glow: rgba(0,204,102,0.3);
-      --bg: #FFFFFF;
-      --bg2: #F8FAFC;
-      --bg3: #F1F5F9;
-      --card: #FFFFFF;
-      --card-border: rgba(0,0,0,0.08); /* Darker border for light theme */
-      --text: #0F172A; /* Slate 900 */
-      --muted: #64748B; /* Slate 500 */
-      --yellow: #F5C842;
-      --red: #E84545;
+      /* ── PureScan Brand Palette ── */
+      --green: #1A4331;           /* pureGreen – deep dark green */
+      --green-dim: rgba(26,67,49,0.10);  /* subtle tint for badges/icons */
+      --green-glow: rgba(26,67,49,0.22); /* soft shadow/glow */
+      --green-hover: #14352700;   /* slightly lighter for hover states */
+      --bg: #FCF7EE;              /* pureCream – primary background */
+      --bg2: #F5F0E4;             /* pureSurface – slightly deeper bg */
+      --bg3: #EDE8DA;             /* one shade darker for contrast */
+      --card: #FCF7EE;            /* pureCream – card base */
+      --card-border: rgba(26,67,49,0.12); /* green-tinted border */
+      --text: #1A2B22;            /* very dark green-black for readability */
+      --muted: #5A7A68;           /* muted sage for secondary text */
+      --yellow: #D4A017;          /* warm amber, harmonized with cream */
+      --red: #C0392B;             /* deep red, still legible on cream */
     }
 
     html { scroll-behavior: smooth; }
@@ -45,7 +47,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 20px 40px;
-      background: rgba(255, 255, 255, 0.9);
+      background: rgba(252, 247, 238, 0.92); /* pureCream semi-transparent */
       backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--card-border);
     }
@@ -121,7 +123,7 @@
       padding: 9px 20px;
       background: var(--green);
       border-radius: 8px;
-      color: #FFFFFF;
+      color: #FCF7EE; /* pureCream text on pureGreen */
       text-decoration: none;
       font-size: 14px;
       font-weight: 700;
@@ -129,7 +131,7 @@
     }
 
     .btn-primary:hover {
-      background: #00b359;
+      background: #122E22; /* darker pureGreen for hover */
       transform: translateY(-1px);
       box-shadow: 0 6px 24px var(--green-glow);
     }
@@ -180,7 +182,7 @@
       left: -200px; /* Moved gradient to match phone on the left */
       width: 900px;
       height: 900px;
-      background: radial-gradient(circle at center, rgba(0,204,102,0.1) 0%, transparent 60%);
+      background: radial-gradient(circle at center, rgba(26,67,49,0.08) 0%, transparent 60%);
       pointer-events: none;
     }
 
@@ -214,7 +216,7 @@
       max-width: 440px;
       height: auto;
       object-fit: contain;
-      filter: drop-shadow(0 30px 60px rgba(0,204,102,0.15));
+      filter: drop-shadow(0 30px 60px rgba(26,67,49,0.18));
       animation: float 6s ease-in-out infinite;
     }
 
@@ -229,12 +231,12 @@
       align-items: center;
       gap: 8px;
       background: var(--green-dim);
-      border: 1px solid rgba(0,204,102,0.25);
+      border: 1px solid rgba(26,67,49,0.20);
       border-radius: 100px;
       padding: 6px 16px;
       font-size: 13px;
       font-weight: 600;
-      color: #00aa55;
+      color: var(--green);
       margin-bottom: 24px;
       letter-spacing: 0.3px;
     }
@@ -443,7 +445,7 @@
     }
 
     .feature-card:hover {
-      border-color: rgba(0,204,102,0.2);
+      border-color: rgba(26,67,49,0.25);
       transform: translateY(-4px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.06);
     }
@@ -455,7 +457,7 @@
       height: 48px;
       border-radius: 12px;
       background: var(--green-dim);
-      border: 1px solid rgba(0,204,102,0.2);
+      border: 1px solid rgba(26,67,49,0.18);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -531,7 +533,7 @@
       margin-bottom: 4px;
     }
 
-    .concern-info-label.low { color: #00aa55; }
+    .concern-info-label.low { color: var(--green); }
     .concern-info-label.medium { color: #d9a822; }
     .concern-info-label.high { color: var(--red); }
     .concern-info-label.unknown { color: var(--muted); }
@@ -560,7 +562,7 @@
     }
 
     .region-card:hover {
-      border-color: rgba(0,204,102,0.25);
+      border-color: rgba(26,67,49,0.25);
       background: var(--bg2);
       box-shadow: 0 10px 24px rgba(0,0,0,0.06);
     }
@@ -621,7 +623,7 @@
     }
 
     .legal-card:hover {
-      border-color: rgba(0,204,102,0.3);
+      border-color: rgba(26,67,49,0.28);
       background: var(--bg2);
       transform: translateY(-4px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.08);
@@ -708,13 +710,13 @@
 
     /* ── DISCLAIMER BANNER ── */
     .disclaimer-bar {
-      background: rgba(245,200,66,0.1);
-      border-top: 1px solid rgba(245,200,66,0.3);
-      border-bottom: 1px solid rgba(245,200,66,0.3);
+      background: rgba(212, 160, 23, 0.08);
+      border-top: 1px solid rgba(212, 160, 23, 0.25);
+      border-bottom: 1px solid rgba(212, 160, 23, 0.25);
       padding: 14px 24px;
       text-align: center;
       font-size: 12px;
-      color: #a37b00;
+      color: #8B6500; /* warm amber text on cream bg */
       font-weight: 600;
       line-height: 1.6;
     }
