@@ -12,13 +12,14 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg:      #080a0f;
-      --bg2:     #0d0f14;
-      --accent:  #2563EB;
-      --accent2: #3b82f6;
-      --accent3: #1d4ed8;
-      --text:    #ffffff;
-      --muted:   #6b7280;
+      --bg:      #FCF7EE;   /* pureCream — page background */
+      --bg2:     #F5F0E4;   /* pureSurface — feature cards */
+      --accent:  #1A4331;   /* pureGreen */
+      --accent2: #2F6B4F;   /* lighter green (gradient end) */
+      --accent3: #12301F;   /* darker green */
+      --text:    #1A4331;
+      --muted:   #7C7668;
+      --serif:   "New York", "Iowan Old Style", Georgia, "Times New Roman", serif;
     }
     html, body {
       background: var(--bg);
@@ -33,28 +34,28 @@
     .page { display: flex; flex-direction: column; align-items: center; padding: 28px 24px 40px; min-height: 100vh; }
     .brand { display: flex; align-items: center; gap: 10px; align-self: flex-start; margin-bottom: 40px; }
     .brand img { height: 36px; width: auto; border-radius: 9px; }
-    .brand span { font-size: 19px; font-weight: 800; letter-spacing: -.03em; color: #fff; }
-    .headline { font-size: clamp(34px, 9.5vw, 44px); font-weight: 700; line-height: 1.08; letter-spacing: -.03em; text-align: left; align-self: flex-start; margin-bottom: 12px; }
+    .brand span { font-family: var(--serif); font-size: 21px; font-weight: 800; letter-spacing: -.02em; color: var(--text); }
+    .headline { font-family: var(--serif); font-size: clamp(34px, 9.5vw, 44px); font-weight: 700; line-height: 1.08; letter-spacing: -.02em; text-align: left; align-self: flex-start; margin-bottom: 12px; }
     .headline span { background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: block; }
     .subhead { font-size: 16px; font-weight: 400; color: var(--muted); text-align: left; align-self: flex-start; line-height: 1.55; margin-bottom: 36px; }
-    .mockup { width: 100%; max-width: 350px; display: block; margin: 0 auto 34px; filter: drop-shadow(0 20px 45px rgba(37,99,235,.22)); }
-    .cta-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 18px 24px; background: #ffffff; color: #080a0f; border-radius: 14px; font-size: 17px; font-weight: 700; letter-spacing: -.01em; text-decoration: none; transition: opacity .15s, transform .1s; -webkit-tap-highlight-color: transparent; }
+    .mockup { width: 100%; max-width: 350px; display: block; margin: 0 auto 34px; filter: drop-shadow(0 20px 45px rgba(26,67,49,.18)); }
+    .cta-btn { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 18px 24px; background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%); color: #ffffff; border-radius: 14px; font-size: 17px; font-weight: 700; letter-spacing: -.01em; text-decoration: none; box-shadow: 0 10px 24px rgba(26,67,49,.25); transition: opacity .15s, transform .1s; -webkit-tap-highlight-color: transparent; }
     .cta-btn:active { opacity: .85; transform: scale(.98); }
     .cta-icon { width: 28px; height: 28px; }
     .cta-sub { margin-top: 12px; margin-bottom: 38px; font-size: 12px; color: var(--muted); text-align: center; }
     .features { width: 100%; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
-    .feature { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid rgba(37,99,235,.14); border-radius: 14px; padding: 16px; }
-    .feature-icon { font-size: 22px; flex-shrink: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(37,99,235,.12); border-radius: 10px; }
+    .feature { display: flex; align-items: center; gap: 14px; background: var(--bg2); border: 1px solid rgba(26,67,49,.12); border-radius: 14px; padding: 16px; }
+    .feature-icon { font-size: 22px; flex-shrink: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: rgba(26,67,49,.08); border-radius: 10px; }
     .feature-text strong { display: block; font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
     .feature-text span { font-size: 13px; color: var(--muted); line-height: 1.4; }
-    .disclaimer { font-size: 11px; color: #4b5563; text-align: center; line-height: 1.5; max-width: 320px; margin: 0 auto; }
-    .tiktok-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 999; align-items: center; justify-content: center; padding: 24px; }
+    .disclaimer { font-size: 11px; color: #A39C8B; text-align: center; line-height: 1.5; max-width: 320px; margin: 0 auto; }
+    .tiktok-overlay { display: none; position: fixed; inset: 0; background: rgba(18,48,31,.72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); z-index: 999; align-items: center; justify-content: center; padding: 24px; }
     .tiktok-overlay.show { display: flex; }
-    .tiktok-card { background: #14161d; border: 1px solid rgba(255,255,255,.1); border-radius: 24px; padding: 36px 28px; text-align: center; max-width: 320px; width: 100%; }
+    .tiktok-card { background: #FCF7EE; border: 1px solid rgba(26,67,49,.15); border-radius: 24px; padding: 36px 28px; text-align: center; max-width: 320px; width: 100%; }
     .tiktok-card .app-icon { width: 72px; height: 72px; border-radius: 16px; margin: 0 auto 20px; display: block; }
-    .tiktok-card h2 { font-size: 19px; font-weight: 700; color: #fff; line-height: 1.35; margin-bottom: 10px; }
+    .tiktok-card h2 { font-size: 19px; font-weight: 700; color: #1A4331; line-height: 1.35; margin-bottom: 10px; }
     .tiktok-card h2 .dots { letter-spacing: 2px; }
-    .tiktok-card p { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.5; }
+    .tiktok-card p { font-size: 14px; color: rgba(26,67,49,.55); line-height: 1.5; }
     .tiktok-arrow { position: fixed; top: 14px; right: 16px; z-index: 1000; animation: bounce 1.2s ease-in-out infinite; }
     .tiktok-arrow svg { width: 56px; height: 56px; filter: drop-shadow(0 0 12px rgba(255,255,255,.8)); }
     @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
@@ -74,13 +75,13 @@
   <div class="page">
     <div class="brand">
       <img src="/tt-assets/app-icon.png" alt="PURE Scan" />
-      <span>PURE Scan</span>
+      <span>Pure Scan</span>
     </div>
     <h1 class="headline">Scan Before<br><span>You Buy</span></h1>
     <p class="subhead">Instantly see an AI-powered grade for any food product, plus safer alternatives when it matters.</p>
     <img class="mockup" src="/tt-assets/app-mockup.png" alt="PURE Scan App" />
     <a class="cta-btn" id="downloadBtn" href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301?ppid=3f2e6a3e-3bca-419d-950b-dc9852c65d96">
-      <svg class="cta-icon" viewBox="0 0 24 24" fill="#080a0f" xmlns="http://www.w3.org/2000/svg">
+      <svg class="cta-icon" viewBox="0 0 24 24" fill="#ffffff" xmlns="http://www.w3.org/2000/svg">
         <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
       </svg>
       Download on the App Store
