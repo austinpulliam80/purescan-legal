@@ -3,8 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PureScan – Know What You're Consuming</title>
-  <meta name="description" content="PureScan is an AI-powered consumer product safety app that instantly analyzes ingredients, additives, allergens, and safety scores — personalized for your health." />
+  <title>PureScan – Food &amp; Ingredient Scanner for iPhone</title>
+  <meta name="description" content="Scan food barcodes with PureScan for iPhone. Explore ingredients, additives, allergens, and brand ownership. Subscription required for scanning and analysis." />
+  <link rel="canonical" href="https://pure-scan.app/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="PureScan" />
+  <meta property="og:url" content="https://pure-scan.app/" />
+  <meta property="og:title" content="PureScan – Food &amp; Ingredient Scanner for iPhone" />
+  <meta property="og:description" content="Scan food barcodes and explore ingredients, additives, allergens, and brand ownership. Subscription required for scanning and analysis." />
+  <meta property="og:image" content="https://pure-scan.app/hero-phone.png" />
+  <meta property="og:image:alt" content="PureScan app interface on an iPhone" />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "PureScan",
+      "alternateName": "Pure Scan",
+      "url": "https://pure-scan.app/"
+    }
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -28,7 +45,7 @@
       --red: #C0392B;             /* deep red, still legible on cream */
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 100px; }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -40,7 +57,7 @@
 
     /* ── NAV ── */
     nav {
-      position: fixed;
+      position: sticky;
       top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex;
@@ -419,7 +436,7 @@
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
       gap: 20px;
     }
 
@@ -789,10 +806,10 @@
       <div class="hero-content">
         <div class="hero-badge">
           <span class="hero-badge-dot"></span>
-          AI-Powered Product Safety
+          Food &amp; Ingredient Scanner
         </div>
-        <h1>Know exactly what<br />you're <span class="accent">putting in</span><br />your body.</h1>
-        <p>PureScan analyzes ingredients, additives, allergens, and safety scores in seconds — personalized to your diet, region, and sensitivities.</p>
+        <h1>Scan your food.<br /><span class="accent">Understand</span><br />the ingredients.</h1>
+        <p>PureScan is a food and ingredient scanner for iPhone. Scan product barcodes to explore ingredients, additives, allergens, and brand ownership. A subscription is required for scanning and analysis.</p>
         
         <div class="hero-buttons">
           <a href="https://apps.apple.com/us/app/pure-scan-ingredient-checker/id6758033301" class="app-store-badge-hero" target="_blank" rel="noopener noreferrer">
@@ -824,7 +841,7 @@
       </div>
       
       <div class="hero-visual">
-        <img src="hero-phone.png" alt="Pure Scan App Home Profile Interface" class="hero-phone" />
+        <img src="hero-phone.png" alt="PureScan food scanner app showing its home and profile interface" class="hero-phone" width="2160" height="2037" fetchpriority="high" />
       </div>
     </div>
   </div>
@@ -833,54 +850,54 @@
   <section id="features">
     <div class="features-header">
       <div class="section-label">What PureScan Analyzes</div>
-      <h2 class="section-title">Every scan tells the<br />full story.</h2>
+      <h2 class="section-title">Explore food ingredients,<br />additives, and more.</h2>
       <p class="section-subtitle">Our AI engine breaks down every ingredient with scientific reasoning, regulatory context, and personalized risk assessment.</p>
     </div>
 
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">🔬</div>
-        <div class="feature-title">Ingredient Risk Breakdown</div>
+        <h3 class="feature-title">Ingredient Risk Breakdown</h3>
         <div class="feature-desc">Every ingredient classified as No Risk, Negligible, Low, Moderate, or High — with scientific rationale and E-number references.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🧪</div>
-        <div class="feature-title">Harmful Additive Detection</div>
+        <h3 class="feature-title">Harmful Additive Detection</h3>
         <div class="feature-desc">Automatically flags additives red-listed or under review by the FDA, EFSA, FSA, or Health Canada depending on your region.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🌿</div>
-        <div class="feature-title">Seed Oil Scanner</div>
+        <h3 class="feature-title">Seed Oil Scanner</h3>
         <div class="feature-desc">Detects canola, soybean, sunflower, corn, safflower, grapeseed, and cottonseed oils — a critical flag for health-conscious users.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">⚠️</div>
-        <div class="feature-title">Heavy Metal Risk Assessment</div>
+        <h3 class="feature-title">Heavy Metal Risk Assessment</h3>
         <div class="feature-desc">Estimates potential exposure to Lead, Cadmium, Arsenic, and Mercury — calibrated against FDA action levels and EU standards.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">📦</div>
-        <div class="feature-title">Packaging Risk Analysis</div>
+        <h3 class="feature-title">Packaging Risk Analysis</h3>
         <div class="feature-desc">Material type, BPA concerns, microplastic leaching potential, recyclability grade, and environmental impact summary.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🏢</div>
-        <div class="feature-title">Conglomerate Ownership</div>
+        <h3 class="feature-title">Conglomerate Ownership</h3>
         <div class="feature-desc">Transparent parent-company ownership chain so you know exactly who makes what you're buying — powered by Wikidata.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🍽️</div>
-        <div class="feature-title">NOVA Processing Level</div>
+        <h3 class="feature-title">NOVA Processing Level</h3>
         <div class="feature-desc">Classifies every product on the NOVA scale (1–4), from whole foods to ultra-processed — a key global nutrition research standard.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">✅</div>
-        <div class="feature-title">Safer Alternatives</div>
+        <h3 class="feature-title">Safer Alternatives</h3>
         <div class="feature-desc">Every scan surfaces 2–3 real-world product alternatives with higher safety scores when your scanned item scores poorly.</div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">🎯</div>
-        <div class="feature-title">Personalized Profile</div>
+        <h3 class="feature-title">Personalized Profile</h3>
         <div class="feature-desc">Set your dietary preferences, allergens, region, and product categories — and every scan is calibrated specifically for you.</div>
       </div>
     </div>
